@@ -7,7 +7,7 @@ It also demonstrates how to evaluate a LangGraph application using LangSmith thr
 
 # 1. Project Structure
 
-''' store-hours-agent/
+store-hours-agent/
 │
 ├── graph.py               # LangGraph workflow
 ├── evaluate.py            # LangSmith SDK evaluation
@@ -15,9 +15,9 @@ It also demonstrates how to evaluate a LangGraph application using LangSmith thr
 │   └── stores.json        # Store hours data
 └── README.md              # Documentation
 
-'''
 
-# ••2. Overview••
+
+# 2. Overview
 
 The agent receives a natural-language question such as:
 
@@ -34,7 +34,7 @@ It performs three steps:
 The workflow is implemented using LangGraph, which allows defining stateful, multi-step logic with nodes and edges.
 
 
-# ••3. LangGraph Workflow••
+# 3. LangGraph Workflow
 
 The graph contains the following nodes:
 
@@ -59,7 +59,7 @@ Constructs the final human-readable response.
 All nodes operate on a shared state dictionary (StoreState).
 
 
-# ••4. Dataset (LangSmith)••
+# 4. Dataset (LangSmith)
 
 A dataset named store-hours-eval was created in the LangSmith UI.
 
@@ -70,7 +70,7 @@ A dataset named store-hours-eval was created in the LangSmith UI.
 | What time does Primark open? | 10:00    |
 
 
-# ••5. Running the Agent Locally••
+# 5. Running the Agent Locally
 
 Run:
 ''' python3 graph.py '''
@@ -80,7 +80,7 @@ Example output:
 ''' Tkmaxx is open from 09:00 to 18:00. '''
 
 
-# ••6. Running the Evaluation (LangSmith SDK)••
+# 6. Running the Evaluation (LangSmith SDK)
 
 6.1 Environment variables
 export OPENAI_API_KEY="your-openai-key"
@@ -94,20 +94,20 @@ export LANGSMITH_PROJECT="store-hours-eval"
 
 The script will output a link to the LangSmith UI where you can inspect:
 
-Inputs
+* Inputs
 
-Model outputs
+* Model outputs
 
-Expected outputs
+* Expected outputs
 
-Scores
+* Scores
 
-Full LangGraph execution traces
-
-
+* Full LangGraph execution traces
 
 
-# ••7. Debugging Notes••
+
+
+# 7. Debugging Notes
 
 During development, an evaluation failure occurred:
 
@@ -128,14 +128,14 @@ Replace with standard ASCII quotes:
 
 This kind of real-world environment/configuration issue is something LangSmith helps surface quickly.
 
-# ••8. Key Concepts Demonstrated••
+# 8. Key Concepts Demonstrated
 
-Building a structured LangGraph workflow
+* Building a structured LangGraph workflow
 
-Using LangSmith datasets for evaluation
+* Using LangSmith datasets for evaluation
 
-Running an evaluation through the UI and SDK
+* Running an evaluation through the UI and SDK
 
-Inspecting traces for debugging
+* Inspecting traces for debugging
 
-Handling model, state, and configuration errors
+* Handling model, state, and configuration errors
