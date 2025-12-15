@@ -1,0 +1,15 @@
+[
+  {
+    "question": "What time does tkmaxx open?",
+    "expected": "09:00"
+  },
+  {
+    "question": "When does tesco close?",
+    "expected": "22:00"
+  },
+  {
+    "question": "What time does primark open?",
+    "expected": "10:00"
+  }
+]
+  
