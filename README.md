@@ -1,67 +1,13 @@
-🏪 Store Hours Agent — LangGraph + LangSmith Evaluation
 
-This project implements a simple store-hours question-answering agent using LangGraph and evaluates it using LangSmith.
+## ••Store Hours Agent (LangGraph + LangSmith Evaluation)••
 
-It demonstrates the full workflow of:
-
-Building a multi-step LLM workflow with LangGraph
-
-Creating and evaluating datasets inside LangSmith
-
-Running experiments in both the UI and SDK
-
-Debugging and improving LLM applications using traces and evaluations
-
-This repository was created as part of a technical exercise showcasing practical knowledge of LangChain tooling.
+This project implements a simple LangGraph workflow that answers questions about store opening and closing hours.
+It also demonstrates how to evaluate a LangGraph application using LangSmith through both the UI and the SDK.
 
 
-📦 Features
+# ••1. Project Structure••
 
-Extracts store names from natural-language questions
-
-Looks up store hours from structured JSON data
-
-Generates a natural response such as “TKMaxx is open from 09:00 to 18:00”
-
-Uses LangGraph to orchestrate the agent workflow
-
-Uses LangSmith to evaluate performance
-
-Includes a programmatic evaluation using langsmith.evaluate()
-
-
-🧱 Architecture Overview
-
-The application is built using LangGraph, which defines a small state machine with three nodes:
-
-[extract_store] → [lookup_hours] → [answer] → END
-
-1. extract_store
-
-Uses an LLM (gpt-4o-mini) to extract the store name from the user’s question.
-
-2. lookup_hours
-
-Finds store hours from the JSON file in data/stores.json.
-
-3. answer
-
-Returns the final natural-language response.
-
-All nodes operate on a shared StoreState.
-
-This demonstrates the key LangGraph concepts:
-
-Stateful workflow
-
-Deterministic edges
-
-LLM tool nodes
-
-Node-by-node traceability inside LangSmith
-
-📁 Repository Structure
-store-hours-agent/
+''' store-hours-agent/
 │
 ├── graph.py               # LangGraph workflow
 ├── evaluate.py            # LangSmith SDK evaluation
@@ -69,113 +15,127 @@ store-hours-agent/
 │   └── stores.json        # Store hours data
 └── README.md              # Documentation
 
-🧪 Dataset & Evaluation
+'''
 
-A dataset was created in the LangSmith UI:
+# ••2. Overview••
 
-question	expected
-What time does TK Maxx open?	09:00
-When does Tesco close?	22:00
-What time does Primark open?	10:00
+The agent receives a natural-language question such as:
 
-Then an evaluation was run using:
+What time does TK Maxx close?
 
-✔ LangSmith UI
+It performs three steps:
 
-Experiment type: Custom Code
-Runner function invoked the LangGraph app.
-Evaluator: Exact Match comparing output against expected.
+1. Extracts the store name using an LLM
 
-✔ LangSmith SDK (evaluate.py)
+2. Looks up the store’s hours from JSON data
 
-Used:
+3. Returns a formatted answer
 
-from langsmith import evaluate
+The workflow is implemented using LangGraph, which allows defining stateful, multi-step logic with nodes and edges.
 
 
-This triggered a full experiment and produced a link to LangSmith with:
+# ••3. LangGraph Workflow••
 
-per-example results
+The graph contains the following nodes:
 
-traces
+extract_store → lookup_hours → answer → END
 
-scoring
 
-pass/fail summary
 
-▶️ Running the Agent Locally
+3.1  extract_store
 
-You can run the workflow directly:
+Uses the LLM to extract a store name from the user question.
 
-python3 graph.py
+3.2 lookup_hours
+
+Searches for the store in data/stores.json.
+
+3.3 answer
+
+Constructs the final human-readable response.
+
+3.4 Shared State
+
+All nodes operate on a shared state dictionary (StoreState).
+
+
+# ••4. Dataset (LangSmith)••
+
+A dataset named store-hours-eval was created in the LangSmith UI.
+
+| question                     | expected |
+| ---------------------------- | -------- |
+| What time does TK Maxx open? | 09:00    |
+| When does Tesco close?       | 22:00    |
+| What time does Primark open? | 10:00    |
+
+
+# ••5. Running the Agent Locally••
+
+Run:
+''' python3 graph.py '''
 
 
 Example output:
+''' Tkmaxx is open from 09:00 to 18:00. '''
 
-Tkmaxx is open from 09:00 to 18:00.
 
-▶️ Running the LangSmith Evaluation
-1. Add your environment variables:
+# ••6. Running the Evaluation (LangSmith SDK)••
+
+6.1 Environment variables
 export OPENAI_API_KEY="your-openai-key"
 export LANGSMITH_API_KEY="your-langsmith-key"
 export LANGSMITH_PROJECT="store-hours-eval"
 
 
-Be careful of “smart quotes” — use regular ASCII quotes only.
-
-2. Run the evaluation:
-python3 evaluate.py
+6.2 Run the evaluation script
+''' python3 evaluate.py '''
 
 
-You will receive a link to the LangSmith experiment, where you can view:
+The script will output a link to the LangSmith UI where you can inspect:
 
 Inputs
 
-Outputs
+Model outputs
 
-Expected values
+Expected outputs
 
-Scoring results
+Scores
 
-Full LangGraph traces for each run
+Full LangGraph execution traces
 
 
 
-🐞 Debugging Journey (What I Learned)
 
-During development, the evaluation initially failed with:
+# ••7. Debugging Notes••
+
+During development, an evaluation failure occurred:
 
 UnicodeEncodeError: 'ascii' codec can't encode character '\u201d'
 
-Root cause
+Cause
 
-The OPENAI_API_KEY environment variable contained a smart quote (from macOS autocorrect).
+The API key environment variable contained a “smart quote” character:
+
+''' export OPENAI_API_KEY=”sk-123” '''
 
 Fix
 
-Replace with a plain quote:
+Replace with standard ASCII quotes:
 
-export OPENAI_API_KEY="sk-xxxxx"
-
-
-This was a good real-world example of:
-
-Debugging LangSmith trace errors
-
-Understanding LangGraph node failures
-
-Identifying encoding issues in API headers
+''' export OPENAI_API_KEY="sk-123" '''
 
 
+This kind of real-world environment/configuration issue is something LangSmith helps surface quickly.
 
-🚀 Future Enhancements
+# ••8. Key Concepts Demonstrated••
 
-Add fuzzy matching for store names
+Building a structured LangGraph workflow
 
-Add multiple branches for different question types
+Using LangSmith datasets for evaluation
 
-Integrate a vector database for store metadata
+Running an evaluation through the UI and SDK
 
-Add more sophisticated evaluators (LLM-as-a-judge)
+Inspecting traces for debugging
 
-Support multi-store operations (“Compare Tesco and TkMaxx hours”)
+Handling model, state, and configuration errors
