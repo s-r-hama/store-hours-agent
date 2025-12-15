@@ -83,7 +83,7 @@ Example output:
 
 # 6. Running the Evaluation (LangSmith SDK)
 
-6.1 Environment variables
+# ••6.1 Environment variables••
 export OPENAI_API_KEY="your-openai-key"
 export LANGSMITH_API_KEY="your-langsmith-key"
 export LANGSMITH_PROJECT="store-hours-eval"
