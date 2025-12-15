@@ -43,19 +43,19 @@ extract_store → lookup_hours → answer → END
 
 
 
-3.1  extract_store
+### 3.1  extract_store
 
 Uses the LLM to extract a store name from the user question.
 
-3.2 lookup_hours
+### 3.2 lookup_hours
 
 Searches for the store in data/stores.json.
 
-3.3 answer
+### 3.3 answer
 
 Constructs the final human-readable response.
 
-3.4 Shared State
+### 3.4 Shared State
 
 All nodes operate on a shared state dictionary (StoreState).
 
