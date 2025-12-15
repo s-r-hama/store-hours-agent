@@ -7,6 +7,7 @@ It also demonstrates how to evaluate a LangGraph application using LangSmith thr
 
 # 1. Project Structure
 
+```
 store-hours-agent/
 │
 ├── graph.py               # LangGraph workflow
@@ -15,7 +16,7 @@ store-hours-agent/
 │   └── stores.json        # Store hours data
 └── README.md              # Documentation
 
-
+```
 
 # 2. Overview
 
@@ -73,11 +74,11 @@ A dataset named store-hours-eval was created in the LangSmith UI.
 # 5. Running the Agent Locally
 
 Run:
-''' python3 graph.py '''
+``` python3 graph.py ```
 
 
 Example output:
-''' Tkmaxx is open from 09:00 to 18:00. '''
+``` Tkmaxx is open from 09:00 to 18:00. ```
 
 
 # 6. Running the Evaluation (LangSmith SDK)
@@ -89,7 +90,7 @@ export LANGSMITH_PROJECT="store-hours-eval"
 
 
 6.2 Run the evaluation script
-''' python3 evaluate.py '''
+``` python3 evaluate.py ```
 
 
 The script will output a link to the LangSmith UI where you can inspect:
@@ -117,13 +118,13 @@ Cause
 
 The API key environment variable contained a “smart quote” character:
 
-''' export OPENAI_API_KEY=”sk-123” '''
+``` export OPENAI_API_KEY=”sk-123” ```
 
 Fix
 
 Replace with standard ASCII quotes:
 
-''' export OPENAI_API_KEY="sk-123" '''
+``` export OPENAI_API_KEY="sk-123" ```
 
 
 This kind of real-world environment/configuration issue is something LangSmith helps surface quickly.
