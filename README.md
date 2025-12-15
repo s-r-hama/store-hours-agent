@@ -1,11 +1,11 @@
 
-## ••Store Hours Agent (LangGraph + LangSmith Evaluation)••
+# Store Hours Agent (LangGraph + LangSmith Evaluation)
 
 This project implements a simple LangGraph workflow that answers questions about store opening and closing hours.
 It also demonstrates how to evaluate a LangGraph application using LangSmith through both the UI and the SDK.
 
 
-# ••1. Project Structure••
+# 1. Project Structure
 
 ''' store-hours-agent/
 │
